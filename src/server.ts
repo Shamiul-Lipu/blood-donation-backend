@@ -1,0 +1,21 @@
+import app from "./app";
+import config from "./config";
+import { prisma } from "./lib/prisma";
+
+const port = config.port;
+
+async function server() {
+  try {
+    await prisma.$connect();
+
+    app.listen(port, async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    await prisma.$disconnect();
+    process.exit(1);
+  }
+}
+
+server();
