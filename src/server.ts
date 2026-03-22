@@ -10,6 +10,7 @@ async function server() {
 
     app.listen(port, async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(`Server is running on ${port}`);
     });
   } catch (error) {
     console.error("❌ Failed to start server:", error);

@@ -1,0 +1,69 @@
+import { betterAuth, boolean } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { prisma } from "./prisma";
+
+export const auth = betterAuth({
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  trustedOrigins: [process.env.API_URL!],
+  session: { cookieCache: { enabled: true, maxAge: 50 * 60 } },
+  advanced: {
+    // cookiePrefix: "better-auth",
+    // useSecureCookies: process.env.NODE_ENV === "production",
+    // crossSubDomainCookies: {
+    //   enabled: false,
+    // },
+    disableCSRFCheck: true,
+  },
+
+  user: {
+    additionalFields: {
+      gender: {
+        type: "string",
+        required: true,
+      },
+      bloodType: {
+        type: "string",
+        required: true,
+      },
+      location: {
+        type: "string",
+        required: true,
+      },
+      division: {
+        type: "string",
+        required: true,
+      },
+      address: {
+        type: "string",
+        required: true,
+      },
+      availability: {
+        type: "boolean",
+        required: true,
+        defaultValue: false,
+      },
+      isDonor: {
+        type: "boolean",
+        required: true,
+        defaultValue: false,
+      },
+      isAccountActive: {
+        type: "boolean",
+        required: true,
+        defaultValue: true,
+      },
+      role: {
+        type: "string",
+        required: true,
+        defaultValue: "USER",
+      },
+    },
+  },
+  emailAndPassword: {
+    enabled: true,
+    // autoSignIn: true,
+    requireEmailVerification: false,
+  },
+});
