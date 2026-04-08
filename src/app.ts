@@ -3,6 +3,7 @@ import cors from "cors";
 import { allApiRoutes } from "./routes/apiRoutes";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
+import globalErrorHandler from "./middleware/globalErrorHandler";
 
 const app = express();
 app.use(express.json());
@@ -27,5 +28,7 @@ app.use((req: Request, res: Response) => {
     message: `Route ${req.originalUrl} not found`,
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;

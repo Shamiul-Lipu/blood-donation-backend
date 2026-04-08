@@ -11,13 +11,13 @@ const router = express.Router();
 router.get(
   "/my-profile",
   authorize(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.USER),
-  validateRequest(updateMyProfileSchema),
   UserController.getMyProfile,
 );
 
 router.put(
   "/my-profile",
   authorize(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.USER),
+  validateRequest(updateMyProfileSchema),
   UserController.updateMyProfile,
 );
 

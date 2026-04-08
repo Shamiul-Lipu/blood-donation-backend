@@ -20,7 +20,7 @@ model User {
   image         String?
 
   gender    Gender
-  bloodType String
+  bloodType BloodType
   location  String
   division  String
   address   String
@@ -125,6 +125,17 @@ model Donation {
   updatedAt DateTime @updatedAt
 
   @@map("donation")
+}
+
+enum BloodType {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
 }
 
 enum RequestStatus {
